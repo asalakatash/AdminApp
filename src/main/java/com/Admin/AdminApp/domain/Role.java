@@ -4,6 +4,8 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -12,8 +14,35 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.SqlResultSetMapping;
 
 @Entity
+@SqlResultSetMapping(
+		name="RolesOnHPMapping",
+	    classes={
+	        @ConstructorResult(
+	        		targetClass=RolesOnHP.class,
+	            columns={
+	                @ColumnResult(name="ROLE_NAME", type = String.class),
+	                @ColumnResult(name="DESCRIPTION", type = String.class),
+	                @ColumnResult(name="PER_NAME", type = String.class),
+	                @ColumnResult(name="ASSIGNED", type = String.class)
+
+	            }
+	        )
+	    }
+	)
+@NamedNativeQuery(name="Role.getRolesOnHP",
+query=" select r.ROLE_NAME ,r.DESCRIPTION  , (SELECT STRING_AGG(p.PER_NAME , ' / ' ) "+
+" from ROLE r1 join ROLE_PERMISSION pr on r1.ROLE_ID =pr.ROLE_ID "+
+" join PERMISSION p on p.PER_ID =pr.PERMISSION_ID "+
+  " where r1.ROLE_ID =r.ROLE_ID ) as PER_NAME,count(r.ROLE_NAME ) as ASSIGNED "+
+" from ROLE r "
++ "join ROLE_PERMISSION pr on r.ROLE_ID =pr.ROLE_ID "+
+ " join PERMISSION p on p.PER_ID =pr.PERMISSION_ID "+
+" group by  r.ROLE_NAME ,r.DESCRIPTION ",
+	resultSetMapping="RolesOnHPMapping")
 public class Role {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

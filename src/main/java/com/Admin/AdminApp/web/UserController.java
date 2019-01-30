@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.Admin.AdminApp.domain.UserRepository;
 import com.Admin.AdminApp.domain.Users;
 import com.Admin.AdminApp.domain.UsersOnHP;
+import com.Admin.AdminApp.domain.UsersRoleArray;
 
 
 @RestController
@@ -18,14 +19,16 @@ public class UserController {
 	@Autowired 
 	private UserRepository repository;
 
-	  @RequestMapping("/usersonhp")
-	  public Set<UsersOnHP> getUsersOnHP() 
-	  {
-         return repository.getUsersOnHP();	 
-      }
+//	  @RequestMapping("/usersonhp")
+//	  public Set<UsersOnHP> getUsersOnHP() 
+//	  {
+//         return repository.getUsersOnHP();	 
+//      }
+//	 
 
-//	@RequestMapping("/users")
-//	public Iterable<User> getUsers() {
-//        return UserRepository.findAll();
-//	} 
+	@RequestMapping("/users")
+	public Iterable<Users> getUsers() {
+        return repository.findAll();
+	} 
+
 }

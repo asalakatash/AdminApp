@@ -26,7 +26,7 @@ import javax.persistence.*;
  		"INNER JOIN USER_ROLE ON USERS.USER_ID=USER_ROLE.USER_ID " + 
  		"INNER JOIN ROLE ON ROLE.ROLE_ID=USER_ROLE.ROLE_ID",
  		resultSetMapping="usersOnHPMapping")
- 
+
 
 public class Users {
 	@Id
@@ -40,7 +40,7 @@ public class Users {
 	private String login;
 	
     
-	 @ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.MERGE})
+	@ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.MERGE})
     @JoinTable(name = "User_Role", joinColumns = @JoinColumn(name = "User_id", referencedColumnName = "UserId"),
     inverseJoinColumns = @JoinColumn(name = "Role_id", referencedColumnName = "RoleId"))
     private Set<Role> roles;
