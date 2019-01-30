@@ -38,8 +38,8 @@ query=" select r.ROLE_NAME ,r.DESCRIPTION  , (SELECT STRING_AGG(p.PER_NAME , ' /
 " from ROLE r1 join ROLE_PERMISSION pr on r1.ROLE_ID =pr.ROLE_ID "+
 " join PERMISSION p on p.PER_ID =pr.PERMISSION_ID "+
   " where r1.ROLE_ID =r.ROLE_ID ) as PER_NAME,count(r.ROLE_NAME ) as ASSIGNED "+
-" from ROLE r "
-+ "join ROLE_PERMISSION pr on r.ROLE_ID =pr.ROLE_ID "+
+" from ROLE r "+
+ " join ROLE_PERMISSION pr on r.ROLE_ID =pr.ROLE_ID "+
  " join PERMISSION p on p.PER_ID =pr.PERMISSION_ID "+
 " group by  r.ROLE_NAME ,r.DESCRIPTION ",
 	resultSetMapping="RolesOnHPMapping")
