@@ -19,16 +19,16 @@ public class UserController {
 	@Autowired 
 	private UserRepository repository;
 
-//	  @RequestMapping("/usersonhp")
-//	  public Set<UsersOnHP> getUsersOnHP() 
-//	  {
-//         return repository.getUsersOnHP();	 
-//      }
-//	 
+	  @RequestMapping("/usersonhp")
+	  public Set<UsersOnHP> getUsersOnHP() 
+	  {
+         return repository.getUsersOnHP();	 
+      }
+	 
 
-	@RequestMapping("/users")
-	public Iterable<Users> getUsers() {
-        return repository.findAll();
-	} 
+//	@RequestMapping("/users")
+//	public Iterable<Users> getUsers() {
+//        return repository.findAll();
+//	} 
 
 }

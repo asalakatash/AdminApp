@@ -11,7 +11,7 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface UserRepository extends CrudRepository <Users, Long> {
 //
-//	@Query(nativeQuery=true)
-//   Set<UsersOnHP> getUsersOnHP();
+	@Query(nativeQuery=true)
+   Set<UsersOnHP> getUsersOnHP();
 
 }
