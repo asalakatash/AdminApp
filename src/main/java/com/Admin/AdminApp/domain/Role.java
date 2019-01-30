@@ -41,7 +41,7 @@ query=" select r.ROLE_NAME ,r.DESCRIPTION  , (SELECT STRING_AGG(p.PER_NAME , ' /
 " from ROLE r "+
  " join ROLE_PERMISSION pr on r.ROLE_ID =pr.ROLE_ID "+
  " join PERMISSION p on p.PER_ID =pr.PERMISSION_ID "+
-" group by  r.ROLE_NAME ,r.DESCRIPTION ",
+" group by  r.ROLE_NAME ,r.ROLE_ID, r.DESCRIPTION ",
 	resultSetMapping="RolesOnHPMapping")
 public class Role {
 	@Id

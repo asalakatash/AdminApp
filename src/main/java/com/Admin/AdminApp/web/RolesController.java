@@ -13,11 +13,11 @@ import com.Admin.AdminApp.domain.RolesOnHP;
 @RestController
 public class RolesController {
 	@Autowired 
-	private RoleRepository Rolerepository;
+	private RoleRepository rolerepository;
 
 	@RequestMapping("/rolesonhp")
 	public Set<RolesOnHP> getRolesOnHP() 
 	{
-		return Rolerepository.getRolesOnHP();	 
+		return rolerepository.getRolesOnHP();	 
 	}
 }
