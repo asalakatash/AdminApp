@@ -4,6 +4,9 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @SqlResultSetMapping(
 		name="usersOnHPMapping",
@@ -26,7 +29,25 @@ import javax.persistence.*;
  		"INNER JOIN USER_ROLE ON USERS.USER_ID=USER_ROLE.USER_ID " + 
  		"INNER JOIN ROLE ON ROLE.ROLE_ID=USER_ROLE.ROLE_ID",
  		resultSetMapping="usersOnHPMapping")
+ 
+@SqlResultSetMapping(
+		name="UsersRoleArrayMapping",
+	    classes={
+	        @ConstructorResult(
+	        		targetClass=UserRoleArray.class,
+	            columns={
+	                @ColumnResult(name="ROLE_NAME", type = String.class)
 
+	            }
+	        )
+	    }
+	)
+ @NamedNativeQuery(name="Users.getUsersRoleArray",
+        query="SELECT ROLE.ROLE_NAME " + 
+ 		" FROM USERS " + 
+ 		" INNER JOIN USER_ROLE ON USERS.USER_ID=USER_ROLE.USER_ID " + 
+ 		" INNER JOIN ROLE ON ROLE.ROLE_ID=USER_ROLE.ROLE_ID " +
+ 		" WHERE((USERS.USER_ID)=:userid) ",resultSetMapping="UsersRoleArrayMapping")
 
 public class Users {
 	@Id
@@ -40,10 +61,12 @@ public class Users {
 	private String login;
 	
     
-	@ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.MERGE})
+	 @ManyToMany(fetch = FetchType.LAZY,cascade = {CascadeType.MERGE})
     @JoinTable(name = "User_Role", joinColumns = @JoinColumn(name = "User_id", referencedColumnName = "UserId"),
     inverseJoinColumns = @JoinColumn(name = "Role_id", referencedColumnName = "RoleId"))
-    private Set<Role> roles;
+	 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+	@JsonIgnore
+	 private Set<Role> roles;
     public Set<Role> getRoles() {
 		return roles;
 	}
