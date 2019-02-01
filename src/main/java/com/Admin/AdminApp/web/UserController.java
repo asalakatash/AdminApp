@@ -32,7 +32,6 @@ public class UserController {
 	  {
          return repository.getUsersOnHP();
       }
-
       @RequestMapping("/users")
       public Iterable<Users> getUsers() {
         return repository.findAll();
