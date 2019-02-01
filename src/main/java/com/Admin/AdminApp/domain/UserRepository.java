@@ -13,7 +13,7 @@ import org.springframework.data.repository.query.Param;
 public interface UserRepository extends CrudRepository <Users, Long> {
 
 	@Query(nativeQuery=true)
-   Set<UsersOnHP> getUsersOnHP();
+    Set<UsersOnHP> getUsersOnHP();
 	@Query(nativeQuery=true)
-	   ArrayList<UserRoleArray> getUsersRoleArray(@Param("userid") long userid);
+    ArrayList<UserRoleArray> getUsersRoleArray(@Param("userid") long userid);
 }
